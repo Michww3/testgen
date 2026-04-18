@@ -1,0 +1,13 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<package xmlns="http://schemas.microsoft.com/packaging/2012/06/nuspec.xsd">
+  <metadata>
+    <id>TestGenerator</id>
+    <version>1.0.0</version>
+    <authors>TestGenerator</authors>
+    <description>Package Description</description>
+    <packageTypes>
+      <packageType name="DotnetTool" />
+    </packageTypes>
+    <repository type="git" commit="dbfc2d5d49ebf3231f0c40727b7a6ba12a95d26b" />
+  </metadata>
+</package>

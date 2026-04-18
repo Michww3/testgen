@@ -1,8 +1,10 @@
-﻿namespace TestGenerator;
+﻿using TestGenerator.DTOs;
+
+namespace TestGenerator;
 
 public static class TestGenerator
 {
-    public static string Generate(string className, string modelInterface, string modelClass, Param[] p)
+    public static string Generate(string className, string modelInterface, string modelClass, TestParam[] p)
     {
         var sb = new System.Text.StringBuilder();
 
@@ -12,7 +14,7 @@ public static class TestGenerator
         const string I1 = "    ";
         const string I2 = "        ";
 
-        // --- 1. From model ---
+        //Model
         sb.AppendLine("[Fact]");
         sb.AppendLine("public void ProduceCorrectHashFromModel()");
         sb.AppendLine("{");
@@ -38,8 +40,7 @@ public static class TestGenerator
         sb.AppendLine("}");
         sb.AppendLine();
 
-        // --- 2. All combinations (SORTED) ---
-
+        //Ctor combinations
         int[] masks = new int[total];
         for (int i = 0; i < total; i++)
             masks[i] = i;
@@ -102,7 +103,7 @@ public static class TestGenerator
         return count;
     }
 
-    static string MaskName(int mask, Param[] p)
+    static string MaskName(int mask, TestParam[] p)
     {
         if (mask == (1 << p.Length) - 1)
             return "Hashes";
