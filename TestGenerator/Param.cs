@@ -1,4 +1,6 @@
-﻿namespace TestGenerator;
+﻿using System;
+
+namespace TestGenerator;
 
 public sealed record Param
 {
