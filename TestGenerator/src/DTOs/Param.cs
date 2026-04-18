@@ -1,6 +1,6 @@
 ﻿using System;
 
-namespace TestGenerator.src;
+namespace TestGenerator.src.DTOs;
 
 public sealed record Param
 {
