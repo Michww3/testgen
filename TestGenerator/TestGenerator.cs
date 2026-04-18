@@ -1,5 +1,5 @@
 ﻿using System;
-using TestGenerator.DTOs;
+using TestGenerator.src.DTOs;
 
 namespace TestGenerator;
 

@@ -3,10 +3,25 @@
 	<PropertyGroup>
 		<OutputType>Exe</OutputType>
 		<TargetFramework>net8.0</TargetFramework>
-		<ImplicitUsings>enable</ImplicitUsings>
-		<Nullable>enable</Nullable>
+
 		<PackAsTool>true</PackAsTool>
 		<ToolCommandName>testgen</ToolCommandName>
+
+		<PackageId>testgen</PackageId>
+		<Version>0.1.0</Version>
+		<Authors>YourName</Authors>
+		<Description>CLI tool for generating hash-based unit tests for C# models</Description>
+		<PackageTags>testing;codegen;dotnet-tool</PackageTags>
+
+		<RepositoryUrl>https://github.com/Michww3/testgen</RepositoryUrl>
+		<PackageLicenseExpression>MIT</PackageLicenseExpression>
+		<PackageReadmeFile>README.md</PackageReadmeFile>
+		<IncludePackageReadmeFile>true</IncludePackageReadmeFile>
+		<Nullable>enable</Nullable>
 	</PropertyGroup>
+
+	<ItemGroup>
+		<None Include="..\..\README.md" Pack="true" PackagePath="" />
+	</ItemGroup>
 
 </Project>
