@@ -1,4 +1,5 @@
 ﻿using System.Collections.Generic;
+using testgen.DTOs;
 
 namespace TestGenerator.src.DTOs;
 

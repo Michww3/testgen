@@ -2,9 +2,10 @@
 using System.Collections.Generic;
 using System.IO;
 using System.Text.Json;
+using testgen.DTOs;
 using TestGenerator.src.DTOs;
 
-namespace TestGenerator.src;
+namespace testgen;
 
 public static class Program
 {

@@ -1,6 +1,7 @@
 ﻿using System.Collections.Generic;
-
-namespace TestGenerator.src.DTOs
+using testgen.DTOs;
+    
+namespace testgen.DTOs
 {
     public class InputModel
     {
