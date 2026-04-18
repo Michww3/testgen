@@ -1,0 +1,19 @@
+{
+  "ClassName": "MyModelHash",
+  "ModelClass": "MyModel",
+  "ModelInterface": "IMyModel",
+  "Params": [
+    {
+      "Type": "IGuid",
+      "Name": "id",
+      "Init": "new Guid()",
+      "HashExpr": "new Hash(id)"
+    },
+    {
+      "Type": "IString",
+      "Name": "name",
+      "Init": "new String()",
+      "HashExpr": "new Hash(name)"
+    }
+  ]
+}
