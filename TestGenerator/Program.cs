@@ -142,7 +142,7 @@ public static class Program
             ModelInterface = "IMyModel",
             ClassName = "MyModelHash",
             Params = new List<TestParam>
-            {
+        {
                 new("IGuid","id","new Guid()","new Hash(id)"),
                 new("IString","name","new String()","new Hash(name)")
             }
