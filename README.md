@@ -66,13 +66,7 @@ MyModelHashTests.cs
 ## 🖥 CLI Usage
 
 ```bash
-testgen \
-  --class=MyModel \
-  --interface=IMyModel \
-  --hash-class=MyModelHash \
-  --param="id:IGuid:new Guid():new DeterminedHash(id)" \
-  --param="chartId:IGuid:new Guid():new DeterminedHash(chartId)" \
-  --out=MyModelHashTests.cs
+testgen --class=MyModel --interface=IMyModel --hash-class=MyModelHash --param="id:IGuid:new Guid():new DeterminedHash(id)" --param="chartId:IGuid:new Guid():new DeterminedHash(chartId)" --out=MyModelHashTests.cs
 ```
 
 ---
@@ -246,7 +240,7 @@ testgen --config=testgen.json
 | `--hash-class` | Hash class name (optional)                                                 |
 | `--param`      | Parameter definition (`name:type:init:hashExpr`, wrap in quotes if needed) |
 | `--config`     | Path to JSON config                                                        |
-| `--out`        | Output file                                                                |
+| `--out`        | Output file (optional)                                                     |
 
 ---
 
