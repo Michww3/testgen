@@ -1,0 +1,19 @@
+{
+  "version": 3,
+  "targets": {
+    "net10.0/win-x64": {
+      "testgenerator/1.0.0": {
+        "type": "package",
+        "tools": {
+          "tools/net8.0/any/DotnetToolSettings.xml": {},
+          "tools/net8.0/any/TestGenerator.deps.json": {},
+          "tools/net8.0/any/TestGenerator.dll": {},
+          "tools/net8.0/any/TestGenerator.pdb": {},
+          "tools/net8.0/any/TestGenerator.runtimeconfig.json": {}
+        }
+      }
+    }
+  },
+  "libraries": {},
+  "projectFileDependencyGroups": {}
+}
