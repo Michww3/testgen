@@ -1,7 +1,7 @@
 ﻿using System;
 using TestGenerator.src.DTOs;
 
-namespace TestGenerator;
+namespace testgen.src;
 
 public static class TestGenerator
 {
