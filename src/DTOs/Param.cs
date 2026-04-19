@@ -4,10 +4,12 @@ namespace testgen.DTOs;
 
 public sealed record Param
 {
-    public string Type { get; }
-    public string Name { get; }
-    public string Init { get; }
-    public string HashExpr { get; }
+    public string Type { get; set; } = string.Empty;
+    public string Name { get; set; } = string.Empty;
+    public string Init { get; set; } = string.Empty;
+    public string HashExpr { get; set; } = string.Empty;
+
+    public Param() { }
 
     public Param(string type, string name, string init, string hashExpr)
     {

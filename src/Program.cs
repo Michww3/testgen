@@ -76,13 +76,13 @@ public static class Program
         return input;
     }
 
-    private static TestParam ParseParam(string arg)
+    private static Param ParseParam(string arg)
     {
         string[] parts = arg.Split('=')[1].Split(':');
 
         return parts.Length != 4
             ? throw new ArgumentException($"Invalid param: {arg}")
-            : new TestParam(
+            : new Param(
             parts[1],
             parts[0],
             parts[2],

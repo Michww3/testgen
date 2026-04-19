@@ -9,5 +9,5 @@ public class InputModel
     public string? ModelInterface { get; set; }
     public string? ConfigPath { get; set; }
     public string? OutputPath { get; set; }
-    public List<TestParam> Parameters { get; set; } = [];
+    public List<Param> Parameters { get; set; } = [];
 }

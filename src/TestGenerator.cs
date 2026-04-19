@@ -6,7 +6,7 @@ namespace testgen;
 
 public static class TestGenerator
 {
-    public static string Generate(string className, string modelInterface, string modelClass, TestParam[] p)
+    public static string Generate(string className, string modelInterface, string modelClass, Param[] p)
     {
         StringBuilder sb = new StringBuilder();
 
@@ -21,7 +21,7 @@ public static class TestGenerator
         sb.AppendLine("public void ProduceCorrectHashFromModel()");
         sb.AppendLine("{");
 
-        foreach (TestParam param in p)
+        foreach (Param param in p)
         {
             sb.AppendLine($"{i1}{param.Type} {param.Name} = {param.Init};");
         }
@@ -63,7 +63,7 @@ public static class TestGenerator
             sb.AppendLine($"public void ProduceCorrectHashFrom{MaskName(mask, p)}()");
             sb.AppendLine("{");
 
-            foreach (TestParam param in p)
+            foreach (Param param in p)
             {
                 sb.AppendLine($"{i1}{param.Type} {param.Name} = {param.Init};");
             }
@@ -111,7 +111,7 @@ public static class TestGenerator
         return count;
     }
 
-    private static string MaskName(int mask, TestParam[] p)
+    private static string MaskName(int mask, Param[] p)
     {
         if (mask == (1 << p.Length) - 1)
         {
