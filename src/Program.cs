@@ -1,9 +1,7 @@
-﻿using System;
-using System.Collections.Generic;
+using System;
 using System.IO;
 using System.Text.Json;
 using testgen.DTOs;
-using TestGenerator.src.DTOs;
 
 namespace testgen;
 
@@ -12,9 +10,11 @@ public static class Program
     public static void Main(string[] args)
     {
         if (HandleInit(args))
+        {
             return;
+        }
 
-        var input = ParseArgs(args);
+        InputModel input = ParseArgs(args);
 
         input = LoadFromJson(input);
 
@@ -27,7 +27,7 @@ public static class Program
         WriteOutput(result, input);
     }
 
-    static bool HandleInit(string[] args)
+    private static bool HandleInit(string[] args)
     {
         if (args.Length > 0 && args[0] == "init")
         {
@@ -41,42 +41,48 @@ public static class Program
     }
 
 
-    static InputModel ParseArgs(string[] args)
+    private static InputModel ParseArgs(string[] args)
     {
-        var input = new InputModel();
+        InputModel input = new InputModel();
 
-        foreach (var arg in args)
+        foreach (string arg in args)
         {
-            if (arg.StartsWith("--config="))
+            if (arg.StartsWith("--config=", StringComparison.Ordinal))
+            {
                 input.ConfigPath = arg.Split('=')[1];
-
-            else if (arg.StartsWith("--class="))
+            }
+            else if (arg.StartsWith("--class=", StringComparison.Ordinal))
+            {
                 input.ModelClass = arg.Split('=')[1];
-
-            else if (arg.StartsWith("--hash-class="))
+            }
+            else if (arg.StartsWith("--hash-class=", StringComparison.Ordinal))
+            {
                 input.ClassName = arg.Split('=')[1];
-
-            else if (arg.StartsWith("--interface="))
+            }
+            else if (arg.StartsWith("--interface=", StringComparison.Ordinal))
+            {
                 input.ModelInterface = arg.Split('=')[1];
-
-            else if (arg.StartsWith("--out="))
+            }
+            else if (arg.StartsWith("--out=", StringComparison.Ordinal))
+            {
                 input.OutputPath = arg.Split('=')[1];
-
-            else if (arg.StartsWith("--param="))
+            }
+            else if (arg.StartsWith("--param=", StringComparison.Ordinal))
+            {
                 input.Parameters.Add(ParseParam(arg));
+            }
         }
 
         return input;
     }
 
-    static TestParam ParseParam(string arg)
+    private static TestParam ParseParam(string arg)
     {
-        var parts = arg.Split('=')[1].Split(':');
+        string[] parts = arg.Split('=')[1].Split(':');
 
-        if (parts.Length != 4)
-            throw new Exception($"Invalid param: {arg}");
-
-        return new TestParam(
+        return parts.Length != 4
+            ? throw new ArgumentException($"Invalid param: {arg}")
+            : new TestParam(
             parts[1],
             parts[0],
             parts[2],
@@ -84,79 +90,91 @@ public static class Program
         );
     }
 
-    static InputModel LoadFromJson(InputModel input)
+    private static InputModel LoadFromJson(InputModel input)
     {
         if (input.ConfigPath == null)
+        {
             return input;
+        }
 
         if (!File.Exists(input.ConfigPath))
-            throw new Exception($"Config not found: {input.ConfigPath}");
+        {
+            throw new FileNotFoundException($"Config not found: {input.ConfigPath}");
+        }
 
-        var json = File.ReadAllText(input.ConfigPath);
+        string json = File.ReadAllText(input.ConfigPath);
 
-        var config = JsonSerializer.Deserialize<GeneratorConfig>(json)
-                     ?? throw new Exception("Invalid config");
+        GeneratorConfig config = JsonSerializer.Deserialize<GeneratorConfig>(json)
+                     ?? throw new InvalidCastException("Invalid config");
 
         return new InputModel
         {
             ClassName = config.ClassName,
             ModelClass = config.ModelClass,
             ModelInterface = config.ModelInterface,
-            Parameters = config.Params ?? new List<TestParam>(),
+            Parameters = config.Params ?? [],
             OutputPath = input.OutputPath
         };
     }
 
-    static void Validate(InputModel input)
+    private static void Validate(InputModel input)
     {
         if (input.ModelClass == null)
-            throw new Exception("--class or config.modelClass is required");
+        {
+            throw new ArgumentException("--class or config.modelClass is required");
+        }
 
         if (input.Parameters.Count == 0)
-            throw new Exception("No params provided");
+        {
+            throw new ArgumentException("No params provided");
+        }
     }
 
-    static void Normalize(InputModel input)
+    private static void Normalize(InputModel input)
     {
         input.ClassName ??= input.ModelClass + "Hash";
         input.ModelInterface ??= "I" + input.ModelClass;
         input.OutputPath ??= input.ClassName + "Tests.cs";
     }
 
-    static string Generate(InputModel input)
+    private static string Generate(InputModel input)
     {
         return TestGenerator.Generate(
             input.ClassName!,
             input.ModelInterface!,
             input.ModelClass!,
-            input.Parameters.ToArray());
+            [.. input.Parameters]);
     }
 
-    static void WriteOutput(string result, InputModel input)
+    private static void WriteOutput(string result, InputModel input)
     {
         File.WriteAllText(input.OutputPath!, result);
         Console.WriteLine($"Tests generated: {input.OutputPath}");
     }
 
-    static void CreateTemplate(string path)
+    private static void CreateTemplate(string path)
     {
-        var config = new GeneratorConfig
+        GeneratorConfig config = new GeneratorConfig
         {
             ModelClass = "MyModel",
             ModelInterface = "IMyModel",
             ClassName = "MyModelHash",
-            Params = new List<TestParam>
-        {
+            Params =
+            [
                 new("IGuid","id","new Guid()","new Hash(id)"),
                 new("IString","name","new String()","new Hash(name)")
-            }
+            ]
         };
 
-        JsonSerializerOptions options = new() { WriteIndented = true };
-        var json = JsonSerializer.Serialize(
+        string json = JsonSerializer.Serialize(
             config,
-            options);
+            JsonOptions);
 
         File.WriteAllText(path, json);
     }
+
+    private static readonly JsonSerializerOptions JsonOptions = new()
+    {
+        WriteIndented = true
+    };
 }

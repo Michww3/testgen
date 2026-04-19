@@ -1,7 +1,6 @@
-﻿using System.Collections.Generic;
-using testgen.DTOs;
+using System.Collections.Generic;
 
-namespace TestGenerator.src.DTOs;
+namespace testgen.DTOs;
 
 public class GeneratorConfig
 {
