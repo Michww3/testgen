@@ -87,7 +87,7 @@ public static class Program
             parts[0],
             parts[2],
             parts[3]
-        );
+            );
     }
 
     private static InputModel LoadFromJson(InputModel input)
