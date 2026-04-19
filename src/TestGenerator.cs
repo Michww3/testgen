@@ -6,6 +6,7 @@ namespace Testgen;
 
 public static class TestGenerator
 {
+#pragma warning disable IDE0058
     public static string Generate(string className, string modelInterface, string modelClass, Param[] p)
     {
         StringBuilder sb = new StringBuilder();
@@ -100,6 +101,7 @@ public static class TestGenerator
         }
         return sb.ToString();
     }
+#pragma warning restore IDE0058
     private static int CountBits(int x)
     {
         int count = 0;
