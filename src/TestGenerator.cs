@@ -1,8 +1,8 @@
 using System;
 using System.Text;
-using testgen.DTOs;
+using Testgen.Models;
 
-namespace testgen;
+namespace Testgen;
 
 public static class TestGenerator
 {

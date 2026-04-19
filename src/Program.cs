@@ -1,9 +1,9 @@
 using System;
 using System.IO;
 using System.Text.Json;
-using testgen.DTOs;
+using Testgen.Models;
 
-namespace testgen;
+namespace Testgen;
 
 public static class Program
 {

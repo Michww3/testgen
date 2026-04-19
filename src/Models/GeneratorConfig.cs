@@ -1,6 +1,6 @@
 using System.Collections.Generic;
 
-namespace testgen.DTOs;
+namespace Testgen.Models;
 
 public class GeneratorConfig
 {

@@ -1,6 +1,6 @@
 using System;
 
-namespace testgen.DTOs;
+namespace Testgen.Models;
 
 public sealed record Param
 {
