@@ -4,12 +4,10 @@ namespace Testgen.Models;
 
 public sealed record Param
 {
-    public string Type { get; set; } = string.Empty;
-    public string Name { get; set; } = string.Empty;
-    public string Init { get; set; } = string.Empty;
-    public string HashExpr { get; set; } = string.Empty;
-
-    public Param() { }
+    public string Type { get; init; }
+    public string Name { get; init; }
+    public string Init { get; init; }
+    public string HashExpr { get; init; }
 
     public Param(string type, string name, string init, string hashExpr)
     {
