@@ -1,6 +1,6 @@
 {
-  "ClassName": "MyModelHash",
-  "ModelClass": "MyModel",
+  "ModelName": "MyModel",
+  "ModelHash": "MyModelHash",
   "ModelInterface": "IMyModel",
   "Params": [
     {
