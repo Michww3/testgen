@@ -33,10 +33,10 @@ jobs:
             ${{ runner.os }}-nuget-
 
       - name: Restore
-        run: dotnet restore
+        run: dotnet restore ./src/testgen.slnx
 
       - name: Build
-        run: dotnet build -c Release --no-restore
+        run: dotnet build ./src/testgen.slnx -c Release --no-restore
 
       - name: Pack (no rebuild + version from tag)
         run: dotnet pack -c Release --no-build \
