@@ -28,7 +28,7 @@ dotnet tool install --global testgen
 
 ```bash
 dotnet pack -c Release
-dotnet tool install --global --add-source ./nupkg testgen
+dotnet tool install --global --add-source bin/Release/nupkg testgen
 ```
 
 ---
