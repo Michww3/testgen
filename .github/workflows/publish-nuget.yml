@@ -40,7 +40,7 @@ jobs:
         run: dotnet build ./src/testgen.slnx -c Release --no-restore
 
       - name: Pack NuGet package
-        run: dotnet pack -c Release --no-build -p:PackageVersion=0.2.0 -o ./nupkgs
+        run: dotnet pack ./src/MySolution.slnx -c Release --no-build -p:PackageVersion=0.2.0 -o ./nupkgs
 
       - name: Push to NuGet
         env:
