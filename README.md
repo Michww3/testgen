@@ -11,7 +11,7 @@ CLI tool for generating hash-based unit tests for C# models.
 * Generates `[Fact]` tests for all constructor combinations
 * Supports **ladder-style test progression** (one hash at a time)
 * Works via CLI or JSON configuration
-* Outputs ready-to-compile `.cs` test files
+* Outputs `.cs` test files
 * Designed for hash-driven domain models
 
 ---
@@ -123,21 +123,21 @@ Example `testgen.json`:
 
 ```json
 {
-  "modelClass": "MyModel",
-  "modelInterface": "IMyModel",
-  "className": "MyModelHash",
-  "params": [
+  "ModelName": "MyModel",
+  "ModelHash": "MyModelHash",
+  "ModelInterface": "IMyModel",
+  "Params": [
     {
-      "type": "IGuid",
-      "name": "id",
-      "init": "new Guid()",
-      "hashExpr": "new DeterminedHash(id)"
+      "Type": "IGuid",
+      "Name": "id",
+      "Init": "new Guid()",
+      "HashExpr": "new Hash(id)"
     },
     {
-      "type": "IGuid",
-      "name": "chartId",
-      "init": "new Guid()",
-      "hashExpr": "new DeterminedHash(chartId)"
+      "Type": "IString",
+      "Name": "name",
+      "Init": "new String()",
+      "HashExpr": "new Hash(name)"
     }
   ]
 }
@@ -235,9 +235,9 @@ testgen --config=testgen.json
 
 | Argument       | Description                                                                |
 | -------------- | -------------------------------------------------------------------------- |
-| `--class`      | Model class name                                                           |
+| `--name`      | Model class name                                                            |
 | `--interface`  | Model interface (optional)                                                 |
-| `--hash-class` | Hash class name (optional)                                                 |
+| `--interface` | Hash class name (optional)                                                  |
 | `--param`      | Parameter definition (`name:type:init:hashExpr`, wrap in quotes if needed) |
 | `--config`     | Path to JSON config                                                        |
 | `--out`        | Output file (optional)                                                     |
