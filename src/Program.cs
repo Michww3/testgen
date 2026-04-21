@@ -9,9 +9,6 @@ public static class Program
 {
     public static void Main(string[] args)
     {
-        //args = ["init"];
-        args = ["--config=testgen.json"];
-        //args = ["--name=MyModelCli", "--interface=IMyModelCli", "--param=id:IGuid:new Guid():new Hash(id)", "--param=name:IString:new String():new Hash(name)", "--out=output.json"];
         if (HandleInit(args))
         {
             return;
