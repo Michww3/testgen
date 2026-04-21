@@ -11,9 +11,9 @@ public sealed record Param
 
     public Param(string type, string name, string init, string hashExpr)
     {
-        Type = type ?? throw new ArgumentNullException(nameof(type));
-        Name = name ?? throw new ArgumentNullException(nameof(name));
-        Init = init ?? throw new ArgumentNullException(nameof(init));
-        HashExpr = hashExpr ?? throw new ArgumentNullException(nameof(hashExpr));
+        Type = type ?? throw new ArgumentNullException(nameof(type), "Param type must be provided");
+        Name = name ?? throw new ArgumentNullException(nameof(name), "Param name must be provided");
+        Init = init ?? throw new ArgumentNullException(nameof(init), "Param init must be provided");
+        HashExpr = hashExpr ?? throw new ArgumentNullException(nameof(hashExpr), "Param hashExpr must be provided");
     }
 }

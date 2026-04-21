@@ -1,5 +1,6 @@
 using System;
 using System.IO;
+using System.Linq;
 using System.Text.Json;
 using Testgen.Models;
 
@@ -71,6 +72,10 @@ public static class Program
             {
                 input.Params.Add(ParseParam(arg));
             }
+            else
+            {
+                throw new ArgumentException($"Unknown argument: {arg}");
+            }
         }
 
         return input;
@@ -112,7 +117,7 @@ public static class Program
             ModelName = config.ModelName,
             ModelHash = config.ModelHash,
             ModelInterface = config.ModelInterface,
-            Params = config.Params ?? [],
+            Params = config.Params.ToList() ?? [],
             OutputPath = input.OutputPath
         };
     }
@@ -140,10 +145,13 @@ public static class Program
     private static string Generate(InputModel input)
     {
         return TestGenerator.Generate(
-            input.ModelName!,
-            input.ModelInterface!,
-            input.ModelHash!,
-            [.. input.Params]);
+            new GeneratorConfig(
+                input.ModelName!,
+                input.ModelHash,
+                input.ModelInterface,
+                [.. input.Params]
+            )
+        );
     }
 
     private static void WriteOutput(string result, InputModel input)

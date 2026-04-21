@@ -7,11 +7,11 @@ namespace Testgen;
 public static class TestGenerator
 {
 #pragma warning disable IDE0058
-    public static string Generate(string className, string modelInterface, string modelClass, Param[] p)
+    public static string Generate(GeneratorConfig config)
     {
         StringBuilder sb = new StringBuilder();
 
-        int n = p.Length;
+        int n = config.Params.Length;
         int total = 1 << n;
 
         const string i1 = "    ";
@@ -22,24 +22,24 @@ public static class TestGenerator
         sb.AppendLine("public void ProduceCorrectHashFromModel()");
         sb.AppendLine("{");
 
-        foreach (Param param in p)
+        foreach (Param param in config.Params)
         {
             sb.AppendLine($"{i1}{param.Type} {param.Name} = {param.Init};");
         }
 
         sb.AppendLine();
 
-        sb.AppendLine($"{i1}{modelInterface} model = new {modelClass}(");
+        sb.AppendLine($"{i1}{config.ModelInterface} model = new {config.ModelHash}(");
         for (int i = 0; i < n; i++)
         {
             string comma = i < n - 1 ? "," : "";
-            sb.AppendLine($"{i2}{p[i].Name}{comma}");
+            sb.AppendLine($"{i2}{config.Params[i].Name}{comma}");
         }
         sb.AppendLine($"{i1});");
         sb.AppendLine();
 
-        sb.AppendLine($"{i1}{className} expected = new {className}(model);");
-        sb.AppendLine($"{i1}{className} actual = new {className}(model);");
+        sb.AppendLine($"{i1}{config.ModelName} expected = new {config.ModelName}(model);");
+        sb.AppendLine($"{i1}{config.ModelName} actual = new {config.ModelName}(model);");
         sb.AppendLine();
         sb.AppendLine($"{i1}Assert.True(expected.SequenceEqual(actual));");
         sb.AppendLine("}");
@@ -61,34 +61,33 @@ public static class TestGenerator
         foreach (int mask in masks)
         {
             sb.AppendLine("[Fact]");
-            sb.AppendLine($"public void ProduceCorrectHashFrom{MaskName(mask, p)}()");
+            sb.AppendLine($"public void ProduceCorrectHashFrom{MaskName(mask, config.Params)}()");
             sb.AppendLine("{");
 
-            foreach (Param param in p)
+            foreach (Param param in config.Params)
             {
                 sb.AppendLine($"{i1}{param.Type} {param.Name} = {param.Init};");
             }
 
             sb.AppendLine();
 
-            sb.AppendLine($"{i1}{modelInterface} model = new {modelClass}(");
+            sb.AppendLine($"{i1}{config.ModelInterface} model = new {config.ModelHash}(");
             for (int i = 0; i < n; i++)
             {
                 string comma = i < n - 1 ? "," : "";
-                sb.AppendLine($"{i2}{p[i].Name}{comma}");
+                sb.AppendLine($"{i2}{config.Params[i].Name}{comma}");
             }
             sb.AppendLine($"{i1});");
 
             sb.AppendLine();
 
-            sb.AppendLine($"{i1}{className} expected = new {className}(model);");
+            sb.AppendLine($"{i1}{config.ModelName} expected = new {config.ModelName}(model);");
 
-            sb.AppendLine($"{i1}{className} actual = new {className}(");
+            sb.AppendLine($"{i1}{config.ModelName} actual = new {config.ModelName}(");
             for (int i = 0; i < n; i++)
             {
                 bool isHash = (mask & (1 << i)) != 0;
-                string value = isHash ? p[i].HashExpr : p[i].Name;
-
+                string value = isHash ? config.Params[i].HashExpr : config.Params[i].Name;
                 string comma = i < n - 1 ? "," : "";
                 sb.AppendLine($"{i2}{value}{comma}");
             }
