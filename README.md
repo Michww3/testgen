@@ -11,7 +11,7 @@ CLI tool for generating hash-based unit tests for C# models.
 * Generates `[Fact]` tests for all constructor combinations
 * Supports **ladder-style test progression** (one hash at a time)
 * Works via CLI or JSON configuration
-* Outputs ready-to-compile `.cs` test files
+* Outputs `.cs` test files
 * Designed for hash-driven domain models
 
 ---
