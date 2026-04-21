@@ -9,8 +9,8 @@ public void ProduceCorrectHashFromModel()
         name
     );
 
-    MyModel expected = new MyModelHash(model);
-    MyModel actual = new MyModelHash(model);
+    MyModelHash expected = new MyModelHash(model);
+    MyModelHash actual = new MyModelHash(model);
 
     Assert.True(expected.SequenceEqual(actual));
 }
