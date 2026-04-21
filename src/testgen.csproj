@@ -8,7 +8,6 @@
 		<ToolCommandName>testgen</ToolCommandName>
 
 		<PackageId>testgen</PackageId>
-		<Version>0.1.0</Version>
 		<Authors>Michww3</Authors>
 		<Description>CLI tool for generating hash-based unit tests for C# models</Description>
 		<PackageTags>testing;codegen;dotnet-tool</PackageTags>
