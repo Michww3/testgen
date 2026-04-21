@@ -235,9 +235,9 @@ testgen --config=testgen.json
 
 | Argument       | Description                                                                |
 | -------------- | -------------------------------------------------------------------------- |
-| `--name`      | Model class name                                                            |
+| `--name`       | Model class name                                                           |
+| `--hash`       | Hash class name (optional)                                                 |
 | `--interface`  | Model interface (optional)                                                 |
-| `--interface` | Hash class name (optional)                                                  |
 | `--param`      | Parameter definition (`name:type:init:hashExpr`, wrap in quotes if needed) |
 | `--config`     | Path to JSON config                                                        |
 | `--out`        | Output file (optional)                                                     |
