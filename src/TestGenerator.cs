@@ -46,11 +46,11 @@ public static class TestGenerator
                $"public void ProduceCorrectHashFromModel(){Environment.NewLine}" +
                $"{{{Environment.NewLine}" +
                $"{declarations}{Environment.NewLine}{Environment.NewLine}" +
-               $"{i1}{config.ModelInterface} model = new {config.ModelHash}({Environment.NewLine}" +
+               $"{i1}{config.ModelInterface} model = new {config.ModelName}({Environment.NewLine}" +
                $"{modelArgs}{Environment.NewLine}" +
                $"{i1});{Environment.NewLine}{Environment.NewLine}" +
-               $"{i1}{config.ModelName} expected = new {config.ModelName}(model);{Environment.NewLine}" +
-               $"{i1}{config.ModelName} actual = new {config.ModelName}(model);{Environment.NewLine}{Environment.NewLine}" +
+               $"{i1}{config.ModelName} expected = new {config.ModelHash}(model);{Environment.NewLine}" +
+               $"{i1}{config.ModelName} actual = new {config.ModelHash}(model);{Environment.NewLine}{Environment.NewLine}" +
                $"{i1}Assert.True(expected.SequenceEqual(actual));{Environment.NewLine}" +
                $"}}";
     }
@@ -76,11 +76,11 @@ public static class TestGenerator
                $"public void ProduceCorrectHashFrom{suffix}(){Environment.NewLine}" +
                $"{{{Environment.NewLine}" +
                $"{declarations}{Environment.NewLine}{Environment.NewLine}" +
-               $"{i1}{config.ModelInterface} model = new {config.ModelHash}({Environment.NewLine}" +
+               $"{i1}{config.ModelInterface} model = new {config.ModelName}({Environment.NewLine}" +
                $"{modelArgs}{Environment.NewLine}" +
                $"{i1});{Environment.NewLine}{Environment.NewLine}" +
-               $"{i1}{config.ModelName} expected = new {config.ModelName}(model);{Environment.NewLine}" +
-               $"{i1}{config.ModelName} actual = new {config.ModelName}({Environment.NewLine}" +
+               $"{i1}{config.ModelHash} expected = new {config.ModelHash}(model);{Environment.NewLine}" +
+               $"{i1}{config.ModelHash} actual = new {config.ModelHash}({Environment.NewLine}" +
                $"{actualArgs}{Environment.NewLine}" +
                $"{i1});{Environment.NewLine}{Environment.NewLine}" +
                $"{i1}Assert.True(expected.SequenceEqual(actual));{Environment.NewLine}" +
