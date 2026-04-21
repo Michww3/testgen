@@ -9,6 +9,9 @@ public static class Program
 {
     public static void Main(string[] args)
     {
+        //args = ["init"];
+        args = ["--config=testgen.json"];
+        //args = ["--name=MyModelCli", "--interface=IMyModelCli", "--param=id:IGuid:new Guid():new Hash(id)", "--param=name:IString:new String():new Hash(name)", "--out=output.json"];
         if (HandleInit(args))
         {
             return;
@@ -51,13 +54,13 @@ public static class Program
             {
                 input.ConfigPath = arg.Split('=')[1];
             }
-            else if (arg.StartsWith("--class=", StringComparison.Ordinal))
+            else if (arg.StartsWith("--name=", StringComparison.Ordinal))
             {
-                input.ModelClass = arg.Split('=')[1];
+                input.ModelName = arg.Split('=')[1];
             }
-            else if (arg.StartsWith("--hash-class=", StringComparison.Ordinal))
+            else if (arg.StartsWith("--hash=", StringComparison.Ordinal))
             {
-                input.ClassName = arg.Split('=')[1];
+                input.ModelHash = arg.Split('=')[1];
             }
             else if (arg.StartsWith("--interface=", StringComparison.Ordinal))
             {
@@ -69,7 +72,7 @@ public static class Program
             }
             else if (arg.StartsWith("--param=", StringComparison.Ordinal))
             {
-                input.Parameters.Add(ParseParam(arg));
+                input.Params.Add(ParseParam(arg));
             }
         }
 
@@ -109,22 +112,22 @@ public static class Program
 
         return new InputModel
         {
-            ClassName = config.ClassName,
-            ModelClass = config.ModelClass,
+            ModelName = config.ModelName,
+            ModelHash = config.ModelHash,
             ModelInterface = config.ModelInterface,
-            Parameters = config.Params ?? [],
+            Params = config.Params ?? [],
             OutputPath = input.OutputPath
         };
     }
 
     private static void Validate(InputModel input)
     {
-        if (input.ModelClass == null)
+        if (input.ModelName == null)
         {
-            throw new ArgumentException("--class or config.modelClass is required");
+            throw new ArgumentException("--class or config with ModelName is required");
         }
 
-        if (input.Parameters.Count == 0)
+        if (input.Params.Count == 0)
         {
             throw new ArgumentException("No params provided");
         }
@@ -132,18 +135,18 @@ public static class Program
 
     private static void Normalize(InputModel input)
     {
-        input.ClassName ??= input.ModelClass + "Hash";
-        input.ModelInterface ??= "I" + input.ModelClass;
-        input.OutputPath ??= input.ClassName + "Tests.cs";
+        input.ModelHash ??= input.ModelName + "Hash";
+        input.ModelInterface ??= "I" + input.ModelName;
+        input.OutputPath ??= input.ModelName + "Tests.cs";
     }
 
     private static string Generate(InputModel input)
     {
         return TestGenerator.Generate(
-            input.ClassName!,
+            input.ModelName!,
             input.ModelInterface!,
-            input.ModelClass!,
-            [.. input.Parameters]);
+            input.ModelHash!,
+            [.. input.Params]);
     }
 
     private static void WriteOutput(string result, InputModel input)
@@ -155,16 +158,15 @@ public static class Program
     private static void CreateTemplate(string path)
     {
         GeneratorConfig config = new GeneratorConfig
-        {
-            ModelClass = "MyModel",
-            ModelInterface = "IMyModel",
-            ClassName = "MyModelHash",
-            Params =
+        (
+            "MyModel",
+            "MyModelHash",
+            "IMyModel",
             [
                 new("IGuid","id","new Guid()","new Hash(id)"),
                 new("IString","name","new String()","new Hash(name)")
             ]
-        };
+        );
 
         string json = JsonSerializer.Serialize(
             config,
