@@ -49,8 +49,8 @@ public static class TestGenerator
                $"{i1}{config.ModelInterface} model = new {config.ModelName}({Environment.NewLine}" +
                $"{modelArgs}{Environment.NewLine}" +
                $"{i1});{Environment.NewLine}{Environment.NewLine}" +
-               $"{i1}{config.ModelName} expected = new {config.ModelHash}(model);{Environment.NewLine}" +
-               $"{i1}{config.ModelName} actual = new {config.ModelHash}(model);{Environment.NewLine}{Environment.NewLine}" +
+               $"{i1}{config.ModelHash} expected = new {config.ModelHash}(model);{Environment.NewLine}" +
+               $"{i1}{config.ModelHash} actual = new {config.ModelHash}(model);{Environment.NewLine}{Environment.NewLine}" +
                $"{i1}Assert.True(expected.SequenceEqual(actual));{Environment.NewLine}" +
                $"}}";
     }
