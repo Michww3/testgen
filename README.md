@@ -66,7 +66,7 @@ MyModelHashTests.cs
 ## 🖥 CLI Usage
 
 ```bash
-testgen --class=MyModel --interface=IMyModel --hash-class=MyModelHash --param="id:IGuid:new Guid():new DeterminedHash(id)" --param="chartId:IGuid:new Guid():new DeterminedHash(chartId)" --out=MyModelHashTests.cs
+testgen --name=MyModel --interface=IMyModel --hash=MyModelHash --param="id:IGuid:new Guid():new DeterminedHash(id)" --param="chartId:IGuid:new Guid():new DeterminedHash(chartId)" --out=MyModelHashTests.cs
 ```
 
 ---
