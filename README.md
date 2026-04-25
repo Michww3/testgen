@@ -241,6 +241,7 @@ testgen --config=testgen.json
 | `--param`      | Parameter definition (`name:type:init:hashExpr`, wrap in quotes if needed) |
 | `--config`     | Path to JSON config                                                        |
 | `--out`        | Output file (optional)                                                     |
+| `--help`, `-h` | Show help                                                                  |
 
 ---
 
