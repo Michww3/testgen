@@ -24,11 +24,11 @@ CLI tool for generating hash-based unit tests for C# models.
 dotnet tool install --global testgen
 ```
 
-### Local (from source)
+### Local (from src folder)
 
 ```bash
 dotnet pack -c Release
-dotnet tool install --global --add-source src/bin/Release/nupkg testgen
+dotnet tool install --global --add-source bin/Release/nupkg testgen
 ```
 
 ---
