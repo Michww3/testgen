@@ -88,8 +88,8 @@ public static class Program
         return parts.Length != 4
             ? throw new ArgumentException($"Invalid param: {arg}")
             : new Param(
-            parts[1],
             parts[0],
+            parts[1],
             parts[2],
             parts[3]
             );

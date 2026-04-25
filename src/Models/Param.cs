@@ -9,7 +9,7 @@ public sealed record Param
     public string Init { get; init; }
     public string HashExpr { get; init; }
 
-    public Param(string type, string name, string init, string hashExpr)
+    public Param(string name, string type, string init, string hashExpr)
     {
         Type = type ?? throw new ArgumentNullException(nameof(type), "Param type must be provided");
         Name = name ?? throw new ArgumentNullException(nameof(name), "Param name must be provided");
