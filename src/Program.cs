@@ -8,24 +8,35 @@ namespace Testgen;
 
 public static class Program
 {
-    public static void Main(string[] args)
+    public static int Main(string[] args)
     {
-        if (HandleInit(args))
+        try
         {
-            return;
+            if (HandleInit(args))
+            {
+                return 0;
+            }
+
+            InputModel input = ParseArgs(args);
+
+            input = LoadFromJson(input);
+
+            Validate(input);
+
+            Normalize(input);
+
+            string result = Generate(input);
+
+            WriteOutput(result, input);
+            return 0;
         }
-
-        InputModel input = ParseArgs(args);
-
-        input = LoadFromJson(input);
-
-        Validate(input);
-
-        Normalize(input);
-
-        string result = Generate(input);
-
-        WriteOutput(result, input);
+        catch (Exception ex)
+        {
+            Console.Error.WriteLine($"Error: {ex.Message}");
+            Console.Error.WriteLine();
+            PrintUsage();
+            return 1;
+        }
     }
 
     private static bool HandleInit(string[] args)
@@ -35,6 +46,12 @@ public static class Program
             string path = args.Length > 1 ? args[1] : "testgen.json";
             CreateTemplate(path);
             Console.WriteLine($"Config template created: {path}");
+            return true;
+        }
+
+        if (args.Any(a => a is "--help" or "-h") || args.Length == 0)
+        {
+            PrintUsage();
             return true;
         }
 
@@ -88,10 +105,10 @@ public static class Program
         return parts.Length != 4
             ? throw new ArgumentException($"Invalid param: {arg}")
             : new Param(
-            parts[0],
-            parts[1],
-            parts[2],
-            parts[3]
+                name: parts[0],
+                type: parts[1],
+                init: parts[2],
+                hashExpr: parts[3]
             );
     }
 
@@ -117,7 +134,7 @@ public static class Program
             ModelName = config.ModelName,
             ModelHash = config.ModelHash,
             ModelInterface = config.ModelInterface,
-            Params = config.Params.ToList() ?? [],
+            Params = [.. config.Params],
             OutputPath = input.OutputPath
         };
     }
@@ -126,7 +143,7 @@ public static class Program
     {
         if (input.ModelName == null)
         {
-            throw new ArgumentException("--class or config with ModelName is required");
+            throw new ArgumentException("--name or config with ModelName is required");
         }
 
         if (input.Params.Count == 0)
@@ -164,12 +181,12 @@ public static class Program
     {
         GeneratorConfig config = new GeneratorConfig
         (
-            "MyModel",
-            "MyModelHash",
-            "IMyModel",
+            modelName: "MyModel",
+            modelHash: "MyModelHash",
+            modelInterface: "IMyModel",
             [
-                new("id","IGuid","new Guid()","new Hash(id)"),
-                new("name","IString","new String()","new Hash(name)")
+                new(name: "id", type: "IGuid", init: "new Guid()", hashExpr: "new Hash(id)"),
+                new(name: "name", type: "IString", init: "new String()", hashExpr: "new Hash(name)")
             ]
         );
 
@@ -179,6 +196,22 @@ public static class Program
 
         File.WriteAllText(path, json);
     }
+
+    private static void PrintUsage()
+    {
+        Console.WriteLine("Usage: testgen [options]");
+        Console.WriteLine();
+        Console.WriteLine("Options:");
+        Console.WriteLine("  init [path]           Create a config template (default: testgen.json)");
+        Console.WriteLine("  --config=PATH         Path to JSON config");
+        Console.WriteLine("  --name=NAME           Model class name");
+        Console.WriteLine("  --hash=HASH           Hash class name (optional)");
+        Console.WriteLine("  --interface=IFACE     Model interface (optional)");
+        Console.WriteLine("  --param=PARAM         Parameter definition (name:type:init:hashExpr). Wrap in quotes if needed");
+        Console.WriteLine("  --out=FILE            Output file (optional)");
+        Console.WriteLine("  --help, -h            Show this help and exit");
+    }
+
 
     private static readonly JsonSerializerOptions JsonOptions = new()
     {
