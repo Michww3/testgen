@@ -168,8 +168,8 @@ public static class Program
             "MyModelHash",
             "IMyModel",
             [
-                new("IGuid","id","new Guid()","new Hash(id)"),
-                new("IString","name","new String()","new Hash(name)")
+                new("id","IGuid","new Guid()","new Hash(id)"),
+                new("name","IString","new String()","new Hash(name)")
             ]
         );
 
