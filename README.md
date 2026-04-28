@@ -6,6 +6,24 @@
 
 ---
 
+## 📚 Table of Contents
+
+- [✨ Features](#-features)
+- [📦 Installation](#-installation)
+- [🚀 Quick Start](#-quick-start)
+- [🖥 CLI Usage](#-cli-usage)
+- [⚙️ Configuration](#️-configuration)
+- [🧬 Generated Output](#-generated-output)
+- [🧠 How It Works](#-how-it-works)
+- [📊 Before / After](#-before--after)
+- [📋 Arguments](#-arguments)
+- [📁 Examples](#-examples)
+- [📄 License](#-license)
+- [🤝 Contributing](#-contributing)
+
+
+---
+
 ## ✨ Features
 
 * Generates `[Fact]` tests for all constructor combinations
