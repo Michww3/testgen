@@ -1,6 +1,6 @@
 # testgen
 
-CLI tool for generating hash-based unit tests for C# models.
+> CLI tool for generating hash-based unit tests for C# models.
 
 `testgen` eliminates repetitive boilerplate when testing hash-based constructors by generating deterministic and exhaustive test cases for all parameter combinations.
 
